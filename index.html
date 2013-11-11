@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="phonegap.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+    </head>
+<body onload="onLoad()">
+    
+    <script type="text/javascript" charset="utf-8">
+        // Wait for device API libraries to load
+        //
+        
+        function onLoad() {
+            document.addEventListener("online", onOnline, false);
+            document.addEventListener("offline", onOffline, false);
+            document.addEventListener('deviceready', onDeviceReady, false);
+        }
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
+            console.log("onDeviceReady");
+        }
+
+        // Handle the online event
+        //
+        function onOnline() {
+            console.log("onOnline");
+        }
+
+        function onOffline() {
+            console.log("onOffline");
+        }
+
+        
+    </script>
+
+
+
+    <div data-role="header" id="divMainHeader">
+
+        <table width="100%">
+            <tr>
+
+                <td width="100%" align="center">SAAB VIN-decoder v1.0</td>
+
+            </tr>
+        </table>
+
+
+    </div><!-- /header -->
+
+    <div data-role="content" data-dom-cache="false">
+
+        <ul data-role="listview" data-inset="true">
+            <li data-role="fieldcontain">
+                <table width="100%">
+                    <tr>
+                        <td width="100%"><input type="text" name="textinput-hide" id="txtVin" placeholder="Enter VIN" value=""></td>
+                        
+                    </tr>
+                    <tr>
+                        <td width="100%" align="right"><input id="btnSearch" type="button" value="Decode" onclick="GetVINData()" /></td>
+                    </tr>
+
+                </table>
+            </li>
+        </ul>
+
+
+        <div id="results">
+
+            <ul data-role="listview" data-inset="true">
+                <li data-role="fieldcontain">
+
+                    <table>
+                        <tr>
+                            <td align="right">Decoded VIN:</td>
+                            <td><label id="lblVIN" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right">Geographical region:</td>
+                            <td><label id="lblGeo" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Country:</b></td>
+                            <td><label id="lblCountry" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Vehicle manufacturer:</b></td>
+                            <td><label id="lblVM" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Product line:</b></td>
+                            <td><label id="lblPL" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Model series :</b></td>
+                            <td><label id="lblMS" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Body version:</b></td>
+                            <td><label id="lblBV" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Gearbox:</b></td>
+                            <td><label id="lblGB" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Engine variant:</b></td>
+                            <td><label id="lblEV" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Check digit:</b></td>
+                            <td><label id="lblCD" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Model year:</b></td>
+                            <td><label id="lblMY" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Place of manufacture:</b></td>
+                            <td><label id="lblPOM" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b>Production number:</b></td>
+                            <td><label id="lblPN" style="font-weight: normal; font-size: 14px"></label></td>
+                        </tr>
+                    </table>
+
+                </li>
+            </ul>
+        </div>
+
+        <div id="error">
+
+            <ul data-role="listview" data-inset="true">
+                <li data-role="fieldcontain">
+
+                    <table>
+                        <tr>
+                            <td align="center"></td>
+                            <td><label id="lblError" style="font-weight: bold; font-size: 14px"></label></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                    </table>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        $(function () {
+            $("#results").hide();
+            $("#error").hide();
+        });
+
+        function GetVINData() {
+            jQuery.support.cors = true;
+            $("#results").hide();
+            var id = $('#txtVin').val();
+            $.ajax({
+                url: 'http://vretalund.dyndns.tv:2345/api/apiservice?vin=' + id,
+                //url: 'http://localhost:2345/api/apiservice?vin=' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    ShowVIN(data);
+                },
+                error: function () {
+                    $("#results").hide();
+                    $("#lblError").text('Server did not respond, try again later.');
+                    $("#error").show();
+                    return;
+                }
+            });
+
+
+            function ShowVIN(car) {
+                if (car == null) {
+                    $("#results").hide();
+                    $("#lblError").text('Unknown error, try again later.');
+                    $("#error").show();
+                    return;
+                }
+
+                if (car.IsValid != false) {
+                    $("#lblVIN").text(car.VIN);
+                    $("#lblGeo").text(car.GeographicalRegion);
+                    $("#lblCountry").text(car.Country);
+                    $("#lblVM").text(car.VehicleManufacturer);
+                    $("#lblPL").text(car.ProductLine);
+                    $("#lblMS").text(car.ModelSeries);
+                    $("#lblBV").text(car.BodyVersion);
+                    $("#lblGB").text(car.Gearbox);
+                    $("#lblEV").text(car.EngineVariant);
+                    $("#lblCD").text(car.CheckDigit);
+                    $("#lblMY").text(car.ModelYear);
+                    $("#lblPOM").text(car.PlaceOfManufacture);
+                    $("#lblPN").text(car.ProductionNumber);
+
+                    $("#error").hide();
+                    $("#results").show();
+                    $("#txtVin").val('');
+
+                } else {
+                    $("#results").hide();
+                    $("#lblError").text(car.InValidMessage);
+                    $("#error").show();
+
+                }
+            }
+
+
+
+        }
+    </script>
+
+</body>
+
+</html>
